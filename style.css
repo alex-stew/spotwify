@@ -1,0 +1,44 @@
+body {
+    background-color: aquamarine;
+    height: 100%;
+    display: flex;
+
+}
+
+#searchBox{
+    border: 10px solid plum;
+    margin:auto;
+    width: 70%;
+    
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
+    max-width: 80%;
+    background-color: aquamarine;
+}
+
+#logo{
+    max-width: 20%;
+   width: 20%;
+   position: relative;
+   top: -10px;
+   margin-top: 10%;
+}
+
+#searchButton{
+    max-width: 45%;
+    width: 45%;
+    margin-top: 10%;
+    
+}
+
+.hide{
+    display:none;
+}
+
+
+
+#music{
+    width: auto;
+}
