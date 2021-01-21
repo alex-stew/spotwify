@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./asset/logo.png" type="image/icon type">
-    <link rel="stylesheet" href="./style.css">
     <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css">
     <title>Spotwify</title>
 </head>
 
 <body>
-    <div id="searchBox" class="hide">
-        <div class="container-fluid">
+    <div id="searchBox" class="background hide" >
+        <div class="container-fluid" class="background">
             <div class="row ">
                 <div class="col-sm d-flex justify-content-center">
                     <img id="logo" src="./asset/logo.png">
@@ -34,9 +34,9 @@
     </div>
 
     <!-- front page content  -->
-    <div class="page-wrapper with-sidebar" class="hide">
+    <div class="page-wrapper with-sidebar" >
         <!-- sidebar section  -->
-        <div class="sidebar">
+        <div class="sidebar background">
             <div class="sidebar-menu">
                 <a href="#" class="sidebar-brand">
                     <img id="frontLogo" src="./asset/logo.png">
@@ -47,24 +47,34 @@
                 </div>
                 <h5 class="sidebar-title">
                     <a href="#twitter" class="sidebar-link">Twitter</a>
+                    <br />
+                    <div class="sidebar-divider"></div>
                     <a href="#artistInfoSection" class="sidebar-link">Artist Info</a>
+                    <br />
+                    <div class="sidebar-divider"></div>
                     <a href="#albrum" class="sidebar-link">Albrum</a></h5>
+
+                    <br />
+                    <div class="sidebar-divider"></div>
+                    
+                        <audio controls id="music" >
+                            <source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg" >
+                          </audio>
+                    
             </div>
-            <audio controls >
-                <source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg" id="music">
-              </audio>
+            
         </div>
 
         <!-- Content wrapper -->
-        <div class="content-wrapper">
-            <div class="container-fluid" class="hide">
+        <div class="content-wrapper ">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="row">
 
                             <!-- Artist info section -->
                             <div class="col-sm-12">
-                                <div class="card" id="artistInfoSection">
+                                <div class="card background" id="artistInfoSection">
                                     <h2 class="card-title" id="artistName">
                                         Artist Name
                                     </h2>
@@ -80,7 +90,7 @@
 
                             <!-- artist albrum section  -->
                             <div class="col-sm-12">
-                                <div class="card" id="albrum">
+                                <div class="card background" id="albrum">
                                     <h2 class="card-title">
                                         Artist albrum
                                     </h2>
@@ -105,7 +115,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="w-600 mw-full">
-                                    <div class="card">
+                                    <div class="card background">
                                         <h2 class="card-title">
                                             Twitter
                                         </h2>
