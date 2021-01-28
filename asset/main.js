@@ -5,7 +5,7 @@ let currentAlbumEl = document.querySelector("#currentAlbum");
 let navigation = document.querySelector('.navigation');
 let toggle = document.querySelector('.toggle');
 let content = document.querySelector('.content-wrapper');
-let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">SPOTWIFY</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input id="spotSearch" type="text" class="form-control" style="z-index: 10;" placeholder="Artist" /></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">TWITTER</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">ARTIST INFO</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">ALBUM</span></a><br/><div class="sidebar-divider"></div></div>';
+let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">SPOTWIFY</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i><input id="spotSearch" type="text" class="form-control" style="z-index: 10;" placeholder="Artist" /></div></span><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">TWITTER</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">ARTIST INFO</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">ALBUM</span></a><br/><div class="sidebar-divider"></div></div>';
 let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a><br /><div class="sidebar-divider"></div></div>';
 let audioEl = document.querySelector('audio');
 
@@ -39,7 +39,8 @@ function togglemenu() {
 $("#searchSidebar").on("submit",function(event){
   event.preventDefault();
   console.log("hello");
-  $("#spotsearch").val();
+  var newEntry = $("#spotSearch").val();
+  console.log(newEntry);
   
 })
 
