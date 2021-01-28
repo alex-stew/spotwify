@@ -2,7 +2,6 @@ body {
     background:url("./opt1_portrait.jpg");
     background-size: cover;  
     min-height: 100vh;
-    max-width: 100vw;
     overflow: hidden;
     z-index: 0;
 }
@@ -191,5 +190,3 @@ content:"✖";
     margin-left: 0;
   }
 }
-
-
