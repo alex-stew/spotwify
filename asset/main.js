@@ -1,4 +1,4 @@
-let artistNameEl = document.querySelector("#artistName");
+let artistNameEl = $("#artistName");
 let artistInfoEl = document.querySelector("#artistInfo");
 let albumNameEl = document.querySelector("#albumTitle");
 let currentAlbumEl = document.querySelector("#currentAlbum");
@@ -80,10 +80,12 @@ $(document).ready(function() {
   }); 
 
   function displayArtistResults(infoRes) {
-      $(artistNameEl).text(JSON.stringify(infoRes.artists[0].strArtist));
+      artistNameEl.text(JSON.stringify(infoRes.artists[0].strArtist));
+      artistNameEl.val().toUpperCase();
       $(artistInfoEl).text(JSON.stringify(infoRes.artists[0].strBiographyEN));
       id = infoRes.artists[0].idArtist;
       console.log(id);
+      getSongs(id);
   }
 
 
