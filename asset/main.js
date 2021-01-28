@@ -7,8 +7,8 @@ let currentAlbumEl = document.querySelector("#currentAlbum");
 let navigation = document.querySelector('.navigation');
 let toggle = document.querySelector('.toggle');
 let content = document.querySelector('.content-wrapper');
-// let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Spotwify</a></li><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" placeholder="Artist"></div><li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">Twitter</span></a></li><br /><div class="sidebar-divider"></div><li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">Artist Infomation</span></a></li><br /><div class="sidebar-divider"></div><li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">Albrum</span></a></li><br/><div class="sidebar-divider"></div><li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span><source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg"></audio></li></ul></div>';
-// let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a></li><div class="sidebar-content"><input type="text" class="form-control"></div><li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li><br /><div class="sidebar-divider"></div><li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a></li><br /><div class="sidebar-divider"></div><li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span></a></li><br /><div class="sidebar-divider"></div><li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span><source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg"></audio></li></ul></div>';
+let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Spotwify</a></li><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" placeholder="Artist"></div><li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">Twitter</span></a></li><br /><div class="sidebar-divider"></div><li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">Artist Infomation</span></a></li><br /><div class="sidebar-divider"></div><li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">Albrum</span></a></li><br/><div class="sidebar-divider"></div><li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span><source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg"></audio></li></ul></div>';
+let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a></li><div class="sidebar-content"><input type="text" class="form-control"></div><li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li><br /><div class="sidebar-divider"></div><li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a></li><br /><div class="sidebar-divider"></div><li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span></a></li><br /><div class="sidebar-divider"></div><li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span><source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg"></audio></li></ul></div>';
 let audioEl = document.querySelector('audio')
 
 function togglemenu() {
@@ -71,76 +71,6 @@ function displayArtistResults(infoRes) {
 }
 
 displayArtistResults();
-
-//YOUTUBE AJAX CALL
-var videoEle = document.getElementById("video");
-var songs = [];
-class Song {
-  constructor(vid, image, songNmae, description) {
-    this.vid = vid;
-    this.image = image;
-    this.songNmae = songNmae;
-    this.description = description;
-  }
-}
-function getSongs(id) {
-  var songUrl = "https://theaudiodb.com/api/v1/json/1/mvid.php?i=" + id;
-  $.ajax({
-    url: songUrl,
-    method: "GET",
-  }).then(function (res) {
-    //console.log("res: "+res.mvids[0].idTrack);
-    for (var i = 0; i < res.mvids.length; i++) {
-      var song = new Song(
-        res.mvids[i].strMusicVid,
-        res.mvids[i].strTrackThumb,
-        res.mvids[i].strTrack,
-        res.mvids[i].strDescriptionEN
-      );
-      songs.push(song);
-    }
-    addToList();
-  });
-}
-function addToList() {
-  for (var i = 0; i < songs.length; i++) {
-    var tr = $("<tr>");
-    var th = $("<th>");
-    var tdImage = $("<td>");
-    var tdName = $("<td>");
-    var image = $("<img style='width:40px; height:40px;'> ");
-    th.html(i);
-    if(songs[i].image !== null){
-      image.attr("src", songs[i].image);
-    }
-    tdImage.append(image);
-    tdName.html(songs[i].songNmae);
-    tr.append(th);
-    tr.append(tdImage);
-    tr.append(tdName);
-    tr.on("click", play);
-    tr.mouseover(songInfo);
-    $("#songList").append(tr);
-  }
-}
-function play() {
-  //event.preventDefault();
-  var index = jQuery(this).children("th").text();
-  var url = songs[index].vid;
-  url = url.replace("watch?v=", "embed/");
-  console.log(url);
-  $("#video").attr("src", url);
-}
-function songInfo() {
-  //alert("songinfo");
-  console.log("songinfo");
-  var popup = $("<div id = 'popup'style='display: none'>");
-  var index = jQuery(this).children("th").text();
-  console.log(songs[index].description);
-  popup.text(songs[index].description);
-  $('#popup').show();
-  jQuery(this).append(popup);
-}
 
 //TWITTER AJAX CALL
 const apiKey = "7uTzV5ptxFiignCy7aCXDljW8";
@@ -212,3 +142,5 @@ $(document).ready(function() {
     });
   }
 });
+
+getSongs("111247");
