@@ -1,19 +1,28 @@
 body {
-    background:url("./background.jpg");
+    background:url("./opt1_portrait.jpg");
     background-size: cover;  
     min-height: 100vh;
     z-index: 0;
 }
 
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-size: cover;
+    background-image: linear-gradient(to left, rgba(185, 15, 207, 0.233), rgba(49, 153, 23, 0.363));
+}
+
 div {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family:'Poppins',sans-serif;
+    box-sizing: border-box; 
+    font-family:'Rubik', sans-serif;
 }
 
 .container-fluid {
@@ -27,6 +36,11 @@ div {
 
 .sidebar-brand {
   margin: 0;
+}
+
+.h2 {
+    font-weight: 900 1;
+    font-size: 2rem;
 }
 
 .navigation{

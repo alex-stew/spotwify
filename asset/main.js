@@ -2,7 +2,6 @@ let artistNameEl = document.querySelector("#artistName");
 let artistInfoEl = document.querySelector("#artistInfo");
 let albumNameEl = document.querySelector("#albumTitle");
 let currentAlbumEl = document.querySelector("#currentAlbum");
-
 let navigation = document.querySelector('.navigation');
 let toggle = document.querySelector('.toggle');
 let content = document.querySelector('.content-wrapper');
@@ -64,14 +63,16 @@ $.ajax({
     method: "GET"
 }).then(function(infoRes){
     console.log(infoRes);
+    displayArtistResults(infoRes);
 }); 
 
 function displayArtistResults(infoRes) {
-    $(artistNameEl).val(JSON.stringify(infoRes.artists[0].strArtist));
-    $(artistInfoEl).val(JSON.stringify(infoRes.artists[0].strBiographyEN));
+    $(artistNameEl).text(JSON.stringify(infoRes.artists[0].strArtist));
+    $(artistInfoEl).text(JSON.stringify(infoRes.artists[0].strBiographyEN));
+    id = infoRes.artists[0].idArtist;
+    console.log(id);
 }
 
-displayArtistResults();
 
 //YOUTUBE AJAX CALL
 var videoEle = document.getElementById("video");
