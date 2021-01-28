@@ -35,6 +35,13 @@ div {
   margin: 25px;
   font-weight: 900;
   font-size: 2rem;
+  white-space: nowrap;
+}
+
+.sidebar-link {
+  display: inline;
+  padding: 10px;
+  white-space: nowrap;
 }
 
 #artistInfo {
