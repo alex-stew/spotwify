@@ -45,6 +45,8 @@ div {
 #artistName {
     text-transform: uppercase;
     color: #00000099;
+    font-weight: 900;
+    font-size: 2rem;
 }
 
 .sidebar-brand {
