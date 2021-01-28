@@ -117,12 +117,38 @@ $(document).ready(function () {
     console.log("songinfo");
     var popup = $("#popup");
     var index = jQuery(this).children("th").text();
-    console.log(songs[index].description);
+    var str = songs[index].description
+    var wordCount = str.match(/(\w+)/g).length;
+
     if (songs[index].description === "") {
       popup.text("NUll");
-    } else {
-      popup.text(songs[index].description);
     }
+    else if (wordCount > 20) {
+      var dotSpan = document.createElement('span');
+      dotSpan.innerHTML = '...';
+      var moreBtn = document.createElement('button');
+      moreBtn.innerHTML = 'Read more';
+      dotSpan.setAttribute("id", "dots");
+      moreBtn.setAttribute("id", "moreBtn");
+      moreBtn.setAttribute("class", "btn btn-link");
+
+      var limit = str.slice(0, 150);
+      popup.empty();
+      popup.append(limit, dotSpan, moreBtn);
+      moreBtn.onclick = function () {
+        var lessBtn = document.createElement('button');
+        lessBtn.innerHTML = 'Show less';
+        lessBtn.setAttribute("class", "btn btn-link");
+        popup.empty();
+        popup.append(str,lessBtn);
+        lessBtn.onclick = function () {
+          popup.empty();
+          popup.append(limit, dotSpan, moreBtn);
+        }
+        return;
+      }
+    }
+
 
     $("#description").show();
 
