@@ -6,7 +6,7 @@ let navigation = document.querySelector('.navigation');
 let toggle = document.querySelector('.toggle');
 let content = document.querySelector('.content-wrapper');
 let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Spotwify</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" style="z-index: 10;" placeholder="Artist" /></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">Twitter</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">Artist Information</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">Album</span></a><br/><div class="sidebar-divider"></div></div>';
-let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a><div class="sidebar-content"><input type="text" style="z-index: 10;" class="form-control"></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span></a><br /><div class="sidebar-divider"></div></div>';
+let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a><div class="sidebar-content"></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span></a><br /><div class="sidebar-divider"></div></div>';
 let audioEl = document.querySelector('audio');
 
 let navigationActive = false;
@@ -19,18 +19,30 @@ function togglemenu() {
     content.style.width = '96%';
     navigation.innerHTML = "";
     navigation.innerHTML = sidebarEmpty;
-    navigation.classList.remove("active");  
+
+    if(navigation.classList.contains("active"))
+      navigation.classList.remove("active");  
   }
   else {
     content.style.marginLeft = '300px';
     content.style.width = '80%';
     navigation.innerHTML = "";
     navigation.innerHTML = sidebarFull;   
-    navigation.classList.add("active");
+
+    if(!navigation.classList.contains("active"))
+      navigation.classList.add("active");
   }
 }
 
 $(document).ready(function() {
+  content.style.marginLeft = '60px';
+  content.style.width = '96%';
+  navigation.innerHTML = "";
+  navigation.innerHTML = sidebarEmpty;
+  
+  if(navigation.classList.contains("active"))
+    navigation.classList.remove("active");  
+
   navigation.addEventListener("mouseenter", function (event) {
     event.stopPropagation();
 
@@ -146,22 +158,19 @@ $(document).ready(function() {
   }
 
   //TWITTER AJAX CALL
-  const apiKey = "7uTzV5ptxFiignCy7aCXDljW8";
-  const apiSecret = "kmPE0L4pB2tnKVSBFAlQBVyfToOdj2muPZodSeIWweeRBeiUnz";
-  const accessToken = "1279288512232058880-LkddxWlnga0LrJFhNwJp6rDo9PWK0r";
-  const accessSecret = "h1ZFlJesD6ijaftS1benKNW0ADJe5vZH7N3Vr4coVw5aw";
+  const bearerToken = 'AAAAAAAAAAAAAAAAAAAAAPSsLwEAAAAAfmGkC5w40GXnulvQILRwRWbNnH8%3DWZ6GrB5H83CPvjFLyBfTzKvdTXFgHaikXFyesyHeJ4yTkaEWpD';
   var twitterHandle = "Tool";
     $.ajax({
       url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/by/username/" + twitterHandle,
       method: "GET",
       timeout: 0,
       beforeSend: function (xhr) {
-        xhr.setRequestHeader('Authorization', 'bearer AAAAAAAAAAAAAAAAAAAAAPSsLwEAAAAAfmGkC5w40GXnulvQILRwRWbNnH8%3DWZ6GrB5H83CPvjFLyBfTzKvdTXFgHaikXFyesyHeJ4yTkaEWpD');
+        xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
       },
       success: function(response)
       {
         if(response.data != undefined) {
-          //$('body').html('');
+          $('#twitter').html('');
           getTweets(response.data.id);
           getMentions(response.data.id);
         } else {
@@ -175,19 +184,37 @@ $(document).ready(function() {
         url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/"+id+"/tweets",
         method: "GET",
         timeout: 0,
+        data: "expansions=author_id",
         beforeSend: function (xhr) {
-          xhr.setRequestHeader('Authorization', 'bearer AAAAAAAAAAAAAAAAAAAAAPSsLwEAAAAAfmGkC5w40GXnulvQILRwRWbNnH8%3DWZ6GrB5H83CPvjFLyBfTzKvdTXFgHaikXFyesyHeJ4yTkaEWpD');
+          xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
         },
         success: function(response)
         {
-          // if(response.data != undefined) {
-          //   console.log(response);
-          //   $('body').append('<h1>Tweets: </h1><br />');
-          //   var ul = $("<ul>");
-          //   response.data.forEach(function(data) {
-          //     ul.append("<p>"+ data.text +"</p>");
-          //   });
-          //   ul.appendTo($('body'));
+          if(response.data != undefined) {
+            $('#twitter').append('<h1>Tweets: </h1><br />');
+            var ul = $("<ul>");
+
+            var index = 0;
+
+            response.data.forEach(function(data) {
+              if(++index < 5) {
+                $.ajax({
+                  url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/"+data.author_id,
+                  method: "GET",
+                  timeout: 0,
+          
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
+                  },
+                  success: function(response)
+                  {
+                    ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>"+ data.text +"</p><p style='margin-bottom: 25px;'>"+ response.data.username+"</p>");
+                  }
+                });
+              }
+            });
+          ul.appendTo($('#twitter'));
+          }
         }
       });
     }
@@ -197,19 +224,36 @@ $(document).ready(function() {
         url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/"+id+"/mentions",
         method: "GET",
         timeout: 0,
+        data: 'expansions=author_id',
         beforeSend: function (xhr) {
-          xhr.setRequestHeader('Authorization', 'bearer AAAAAAAAAAAAAAAAAAAAAPSsLwEAAAAAfmGkC5w40GXnulvQILRwRWbNnH8%3DWZ6GrB5H83CPvjFLyBfTzKvdTXFgHaikXFyesyHeJ4yTkaEWpD');
+          xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
         },
         success: function(response)
         {
-          // if(response.data != undefined) {
-          //   console.log(response);
-          //   var ul = $("<ul>");
-          //   $('body').append('<h1>Mentions: </h1><br />');
-          //   response.data.forEach(function(data) {
-          //     ul.append("<p>"+ data.text +"</p>");
-          //   });
-          //   ul.appendTo($('body'));
+          if(response.data != undefined) {
+            var ul = $("<ul>");
+            $('#twitter').append('<h1>Mentions: </h1><br />');
+
+            var index = 0;
+
+            response.data.forEach(function(data) {
+              if(++index < 5)
+                $.ajax({
+                  url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/"+data.author_id,
+                  method: "GET",
+                  timeout: 0,
+          
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
+                  },
+                  success: function(response)
+                  {
+                    ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>"+ data.text +"</p><p style='margin-bottom: 25px;'>"+ response.data.username+"</p>");
+                  }
+                });            
+            });
+            ul.appendTo($('#twitter'));
+          }
         }
       });
     }
