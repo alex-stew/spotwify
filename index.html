@@ -15,113 +15,121 @@
 </head>
 
 <body>
-    <div id="searchBox" class="background hide">
-        <div class="container-fluid" class="background">
-            <div class="row ">
-                <div class="col-sm d-flex justify-content-center">
-                    <img id="logo" src="./asset/logo.png">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8 d-flex justify-content-center">
-                    <input type="text" class="form-control form-control-lg" placeholder="Artists" name="infoInput">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6 d-flex justify-content-center">
-                    <button class="btn btn-block" type="submit" id="searchButton">Search</button>
-                </div>
-            </div>
+  <div id="searchBox" class="background hide">
+    <div class="container-fluid" class="background">
+      <div class="row">
+        <div class="col-sm d-flex justify-content-center">
+          <img id="logo" src="./asset/logo.png" />
         </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 d-flex justify-content-center">
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            placeholder="Artists"
+            name="infoInput"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3"></div>
+          <div class="col-sm-6 d-flex justify-content-center">
+            <button class="btn btn-block" type="submit" id="searchButton">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- front page content  -->
     <div class="page-wrapper with-sidebar">
-        <!-- sidebar section  -->
-        <div class="sidebar navigation">
-            <div class="sidebar-menu" style="max-width:86%;height:auto;">
-                <ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a></li>
-                    <div class="sidebar-content"><input type="text" class="form-control"></div>
-                    <li><a href="#twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li><br />
-                    <div class="sidebar-divider"></div>
-                    <li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle"
-                                    aria-hidden="true"></i></span></a></li><br />
-                    <div class="sidebar-divider"></div>
-                    <li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o"
-                                    aria-hidden="true"></i></span></a></li><br />
-                    <div class="sidebar-divider"></div>
-                    <li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span>
-                            <source src="" type="audio/ogg">
-                        </audio></li>
-                </ul>
-            </div>
+      <!-- sidebar section  -->
+      <div class="sidebar navigation">
+        <div class="sidebar-menu" style="max-width: 86%; height: auto">
+          <a href="#" class="sidebar-brand"
+            ><img id="frontLogo" src="./asset/logo.png"
+          /></a>
+          <div class="sidebar-content">
+            <input type="text" style="z-index: 10" class="form-control" />
+          </div>
+          <a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a
+          ><br />
+          <div class="sidebar-divider"></div>
+          <a href="#artistInfoSection"
+            ><span class="icon"
+              ><i class="fa fa-info-circle" aria-hidden="true"></i></span></a
+          ><br />
+          <div class="sidebar-divider"></div>
+          <a href="#album"
+            ><span class="icon"
+              ><i class="fa fa-circle-o" aria-hidden="true"></i></span></a
+          ><br />
+          <div class="sidebar-divider"></div>
         </div>
+      </div>
     </div>
 
     <!-- Content wrapper -->
-    <div class="content-wrapper ">
-        <div class="container-fluid">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-8">
             <div class="row">
-                <div class="col-sm-8">
-                    <div class="row">
-                        <!-- artist info section -->
-                        <div class="col-sm-12">
-                            <div class="card background" id="artistInfoSection">
-                                <h2 class="card-title" id="artistName"></h2>
-                                <p id="artistInfo"></p>
-                            </div>
-                        </div>
-
-                        <!-- album info section  -->
-                        <div class="col-sm-12">
-                            <div class="card background" id="artistAlbum">
-                                <h2 class="card-title" id="nowPlaying">
-                                    NOW PLAYING
-                                </h2>
-                                <div class="w-200 mw-full card p-0">
-                                    <img id="currentAlbum" src="..." class="img-fluid rounded-top" alt="...">
-                                    <div class="content">
-                                        <h2 class="content-title">
-                                            Album name
-                                        </h2>
-                                        <p class="text-muted">
-                                            description
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              <!-- artist info section -->
+              <div class="col-sm-12">
+                <div class="card background" id="artistInfoSection">
+                  <h2 class="card-title" id="artistName"></h2>
+                  <p id="artistInfo"></p>
                 </div>
-
-                <!-- artist twitter section  -->
-                <div class="col-sm-4">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="w-600 mw-full">
-                                <div class="card background">
-                                    <h2 class="card-title">
-                                        TWITTER
-                                    </h2>
-                                    <p class="text-muted" id="twitter">
-                                        ##tag twitter
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-            </div>
+              </div>
+              <!-- album info section  -->
+              <div class="col-sm-12">
+                  <div class="card background" id="artistAlbum">
+                      <h2 class="card-title" id="nowPlaying">
+                          NOW PLAYING
+                      </h2>
+                      <div class="w-200 mw-full card p-0">
+                          <img id="currentAlbum" src="..." class="img-fluid rounded-top" alt="...">
+                          <div class="content">
+                              <h2 class="content-title">
+                                  Album name
+                              </h2>
+                              <p class="text-muted">
+                                  description
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
         </div>
-
+      </div>
     </div>
+  </div>
+    
+  <!-- artist twitter section  -->
+  <div class="col-sm-4">
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="w-600 mw-full">
+                  <div class="card background">
+                      <h2 class="card-title">
+                          TWITTER
+                      </h2>
+                      <p class="text-muted" id="twitter">
+                          ##tag twitter
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div> 
 
-    <div class="toggle" onclick="togglemenu()"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="./asset/main.js"></script>
-
+  <div class="toggle" onclick="togglemenu()"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./asset/main.js"></script>
 </body>
-
 </html>
