@@ -36,6 +36,13 @@ function togglemenu() {
   }
 }
 
+$("#searchSidebar").on("submit",function(event){
+  event.preventDefault();
+  console.log("hello");
+  $("#spotsearch").val();
+  
+})
+
 $(document).ready(function () {
   content.style.marginLeft = '60px';
   content.style.width = '96%';
