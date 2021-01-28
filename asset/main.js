@@ -160,8 +160,8 @@ $(document).ready(function() {
   }); 
 
   function displayArtistResults(infoRes) {
-      artistNameEl.text(JSON.stringify(infoRes.artists[0].strArtist));
-      $(artistInfoEl).text(JSON.stringify(infoRes.artists[0].strBiographyEN));
+      artistNameEl.text(infoRes.artists[0].strArtist);
+      $(artistInfoEl).text(infoRes.artists[0].strBiographyEN);
       id = infoRes.artists[0].idArtist;
       console.log(id);
       getSongs(id);
@@ -203,7 +203,7 @@ $(document).ready(function() {
         success: function(response)
         {
           if(response.data != undefined) {
-            $('#twitter').append('<h1>Tweets: </h1><br />');
+            $('#twitter').append('<h3>TWEETS: </h3><br />');
             var ul = $("<ul>");
 
             var index = 0;
@@ -220,7 +220,7 @@ $(document).ready(function() {
                   },
                   success: function(response)
                   {
-                    ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>"+ data.text +"</p><p style='margin-bottom: 25px;'>"+ response.data.username+"</p>");
+                    ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>"+ data.text +"</p><h4 style='margin-bottom: 25px;'>"+ response.data.username+"</h4>");
                   }
                 });
               }
@@ -244,7 +244,7 @@ $(document).ready(function() {
         {
           if(response.data != undefined) {
             var ul = $("<ul>");
-            $('#twitter').append('<h1>Mentions: </h1><br />');
+            $('#twitter').append('<h3>MENTIONS: </h3><br />');
 
             var index = 0;
 
@@ -260,7 +260,7 @@ $(document).ready(function() {
                   },
                   success: function(response)
                   {
-                    ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>"+ data.text +"</p><p style='margin-bottom: 25px;'>"+ response.data.username+"</p>");
+                    ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>"+ data.text +"</p><h4 style='margin-bottom: 25px;'>"+ response.data.username+"</h4>");
                   }
                 });            
             });
