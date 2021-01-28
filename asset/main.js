@@ -1,11 +1,11 @@
-let artistNameEl = document.querySelector("#artistName");
+let artistNameEl = $("#artistName");
 let artistInfoEl = document.querySelector("#artistInfo");
 let albumNameEl = document.querySelector("#albumTitle");
 let currentAlbumEl = document.querySelector("#currentAlbum");
 let navigation = document.querySelector('.navigation');
 let toggle = document.querySelector('.toggle');
 let content = document.querySelector('.content-wrapper');
-let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Spotwify</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" style="z-index: 10;" placeholder="Artist" /></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">Twitter</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">Artist Information</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">Album</span></a><br/><div class="sidebar-divider"></div></div>';
+let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Spotwify</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" style="z-index: 10;" placeholder="Artist" /></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">TWITTER</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">ARTIST INFO</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">NOW PLAYING</span></a><br/><div class="sidebar-divider"></div></div>';
 let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a><div class="sidebar-content"><input type="text" style="z-index: 10;" class="form-control"></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span></a><br /><div class="sidebar-divider"></div></div>';
 let audioEl = document.querySelector('audio');
 
@@ -68,10 +68,12 @@ $(document).ready(function() {
   }); 
 
   function displayArtistResults(infoRes) {
-      $(artistNameEl).text(JSON.stringify(infoRes.artists[0].strArtist));
+      artistNameEl.text(JSON.stringify(infoRes.artists[0].strArtist));
+      artistNameEl.val().toUpperCase();
       $(artistInfoEl).text(JSON.stringify(infoRes.artists[0].strBiographyEN));
       id = infoRes.artists[0].idArtist;
       console.log(id);
+      getSongs(id);
   }
 
 
