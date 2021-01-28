@@ -33,6 +33,13 @@ div {
 
 .sidebar-menu a {
   margin: 25px;
+  font-weight: 900;
+  font-size: 2rem;
+}
+
+#artistInfo {
+    font-weight: 200;
+    text-align: justify;
 }
 
 .sidebar-brand {
