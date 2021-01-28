@@ -21,26 +21,26 @@ function togglemenu() {
     navigation.innerHTML = "";
     navigation.innerHTML = sidebarEmpty;
 
-    if(navigation.classList.contains("active"))
-      navigation.classList.remove("active");  
+    if (navigation.classList.contains("active"))
+      navigation.classList.remove("active");
   }
   else {
     content.style.marginLeft = '300px';
     content.style.width = '80%';
     navigation.innerHTML = "";
-    navigation.innerHTML = sidebarFull;   
+    navigation.innerHTML = sidebarFull;
 
-    if(!navigation.classList.contains("active"))
+    if (!navigation.classList.contains("active"))
       navigation.classList.add("active");
   }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   content.style.marginLeft = '60px';
   content.style.width = '96%';
   navigation.innerHTML = "";
   navigation.innerHTML = sidebarEmpty;
-  
+
   class Song {
     constructor(vid, image, songNmae, description) {
       this.vid = vid;
@@ -85,7 +85,7 @@ $(document).ready(function() {
       tr.append(tdImage);
       tr.append(tdName);
       tr.on("click", play);
-      tr.on("click",songInfo);
+      tr.on("click", songInfo);
       $("#songList").append(tr);
     }
   }
@@ -109,36 +109,62 @@ $(document).ready(function() {
     console.log("songinfo");
     var popup = $("#popup");
     var index = jQuery(this).children("th").text();
-    console.log(songs[index].description);
-    if(songs[index].description === ""){
+    var str = songs[index].description
+    var wordCount = str.match(/(\w+)/g).length;
+
+    if (songs[index].description === "") {
       popup.text("NUll");
-    }else{
-      popup.text(songs[index].description);
     }
-    
+    else if (wordCount > 20) {
+      var dotSpan = document.createElement('span');
+      dotSpan.innerHTML = '...';
+      var moreBtn = document.createElement('button');
+      moreBtn.innerHTML = 'Read more';
+      dotSpan.setAttribute("id", "dots");
+      moreBtn.setAttribute("id", "moreBtn");
+      moreBtn.setAttribute("class", "btn btn-link");
+
+      var limit = str.slice(0, 150);
+      popup.empty();
+      popup.append(limit, dotSpan, moreBtn);
+      moreBtn.onclick = function () {
+        var lessBtn = document.createElement('button');
+        lessBtn.innerHTML = 'Show less';
+        lessBtn.setAttribute("class", "btn btn-link");
+        popup.empty();
+        popup.append(str,lessBtn);
+        lessBtn.onclick = function () {
+          popup.empty();
+          popup.append(limit, dotSpan, moreBtn);
+        }
+        return;
+      }
+    }
+
+
     $("#description").show();
-    
+
   }
 
-  if(navigation.classList.contains("active"))
-    navigation.classList.remove("active");  
+  if (navigation.classList.contains("active"))
+    navigation.classList.remove("active");
 
   navigation.addEventListener("mouseenter", function (event) {
     event.stopPropagation();
 
-    if(!navigation.classList.contains("active")) {
+    if (!navigation.classList.contains("active")) {
       navigationActive = true;
       content.style.marginLeft = '300px';
 
       content.style.width = '80%';
-      navigation.innerHTML = sidebarFull;  
+      navigation.innerHTML = sidebarFull;
     }
   });
 
   navigation.addEventListener("mouseleave", function (event) {
     event.stopPropagation();
 
-    if(!navigation.classList.contains("active")) {
+    if (!navigation.classList.contains("active")) {
       navigationActive = false;
       content.style.marginLeft = '60px';
 
@@ -152,121 +178,116 @@ $(document).ready(function() {
   var infoURL = "https://www.theaudiodb.com/api/v1/json/1/search.php?s=" + query;
 
   $.ajax({
-      url:infoURL,
-      method: "GET"
-  }).then(function(infoRes){
-      console.log(infoRes);
-      displayArtistResults(infoRes);
-  }); 
+    url: infoURL,
+    method: "GET"
+  }).then(function (infoRes) {
+    console.log(infoRes);
+    displayArtistResults(infoRes);
+  });
 
   function displayArtistResults(infoRes) {
-      artistNameEl.text(infoRes.artists[0].strArtist);
-      $(artistInfoEl).text(infoRes.artists[0].strBiographyEN);
-      id = infoRes.artists[0].idArtist;
-      console.log(id);
-      getSongs(id);
+    artistNameEl.text(infoRes.artists[0].strArtist);
+    $(artistInfoEl).text(infoRes.artists[0].strBiographyEN);
+    id = infoRes.artists[0].idArtist;
+    console.log(id);
+    getSongs(id);
   }
 
 
-  
+
   //TWITTER AJAX CALL
   const bearerToken = 'AAAAAAAAAAAAAAAAAAAAAPSsLwEAAAAAfmGkC5w40GXnulvQILRwRWbNnH8%3DWZ6GrB5H83CPvjFLyBfTzKvdTXFgHaikXFyesyHeJ4yTkaEWpD';
   var twitterHandle = "Tool";
+  $.ajax({
+    url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/by/username/" + twitterHandle,
+    method: "GET",
+    timeout: 0,
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
+    },
+    success: function (response) {
+      if (response.data != undefined) {
+        $('#twitter').html('');
+        getTweets(response.data.id);
+        getMentions(response.data.id);
+      } else {
+        console.log("Could not find user!");
+      }
+    }
+  });
+
+  var getTweets = function (id) {
     $.ajax({
-      url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/by/username/" + twitterHandle,
+      url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + id + "/tweets",
       method: "GET",
       timeout: 0,
+      data: "expansions=author_id",
       beforeSend: function (xhr) {
         xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
       },
-      success: function(response)
-      {
-        if(response.data != undefined) {
-          $('#twitter').html('');
-          getTweets(response.data.id);
-          getMentions(response.data.id);
-        } else {
-          console.log("Could not find user!");
+      success: function (response) {
+        if (response.data != undefined) {
+          $('#twitter').append('<h3>TWEETS: </h3><br />');
+          var ul = $("<ul>");
+
+          var index = 0;
+
+          response.data.forEach(function (data) {
+            if (++index < 5) {
+              $.ajax({
+                url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + data.author_id,
+                method: "GET",
+                timeout: 0,
+
+                beforeSend: function (xhr) {
+                  xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
+                },
+                success: function (response) {
+                  ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>" + data.text + "</p><h4 style='margin-bottom: 25px;'>" + response.data.username + "</h4>");
+                }
+              });
+            }
+          });
+          ul.appendTo($('#twitter'));
         }
       }
     });
+  }
 
-    var getTweets = function(id) {
-      $.ajax({
-        url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/"+id+"/tweets",
-        method: "GET",
-        timeout: 0,
-        data: "expansions=author_id",
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
-        },
-        success: function(response)
-        {
-          if(response.data != undefined) {
-            $('#twitter').append('<h3>TWEETS: </h3><br />');
-            var ul = $("<ul>");
+  var getMentions = function (id) {
+    $.ajax({
+      url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + id + "/mentions",
+      method: "GET",
+      timeout: 0,
+      data: 'expansions=author_id',
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
+      },
+      success: function (response) {
+        if (response.data != undefined) {
+          var ul = $("<ul>");
+          $('#twitter').append('<h3>MENTIONS: </h3><br />');
 
-            var index = 0;
+          var index = 0;
 
-            response.data.forEach(function(data) {
-              if(++index < 5) {
-                $.ajax({
-                  url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/"+data.author_id,
-                  method: "GET",
-                  timeout: 0,
-          
-                  beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
-                  },
-                  success: function(response)
-                  {
-                    ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>"+ data.text +"</p><h4 style='margin-bottom: 25px;'>"+ response.data.username+"</h4>");
-                  }
-                });
-              }
-            });
+          response.data.forEach(function (data) {
+            if (++index < 5)
+              $.ajax({
+                url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + data.author_id,
+                method: "GET",
+                timeout: 0,
+
+                beforeSend: function (xhr) {
+                  xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
+                },
+                success: function (response) {
+                  ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>" + data.text + "</p><h4 style='margin-bottom: 25px;'>" + response.data.username + "</h4>");
+                }
+              });
+          });
           ul.appendTo($('#twitter'));
-          }
         }
-      });
-    }
-
-    var getMentions = function(id) {
-      $.ajax({
-        url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/"+id+"/mentions",
-        method: "GET",
-        timeout: 0,
-        data: 'expansions=author_id',
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
-        },
-        success: function(response)
-        {
-          if(response.data != undefined) {
-            var ul = $("<ul>");
-            $('#twitter').append('<h3>MENTIONS: </h3><br />');
-
-            var index = 0;
-
-            response.data.forEach(function(data) {
-              if(++index < 5)
-                $.ajax({
-                  url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/"+data.author_id,
-                  method: "GET",
-                  timeout: 0,
-          
-                  beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'bearer ' + bearerToken);
-                  },
-                  success: function(response)
-                  {
-                    ul.append("<p style='padding: 20px; border-radius: 5px; background-color: aliceblue; margin-bottom: 5px;'>"+ data.text +"</p><h4 style='margin-bottom: 25px;'>"+ response.data.username+"</h4>");
-                  }
-                });            
-            });
-            ul.appendTo($('#twitter'));
-          }
-        }
-      });
-    }
-  });
+      }
+    });
+  }
+});
