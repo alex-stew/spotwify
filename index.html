@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./asset/style.css">
     <title>Spotwify</title>
 </head>
 
@@ -42,7 +44,7 @@
             <div class="sidebar-menu" style="max-width:86%;height:auto;">
                 <ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a></li>
                     <div class="sidebar-content"><input type="text" class="form-control"></div>
-                    <li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li><br />
+                    <li><a href="#twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li><br />
                     <div class="sidebar-divider"></div>
                     <li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle"
                                     aria-hidden="true"></i></span></a></li><br />
@@ -51,13 +53,12 @@
                                     aria-hidden="true"></i></span></a></li><br />
                     <div class="sidebar-divider"></div>
                     <li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span>
-                            <source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg">
-                            </audio></li>
+                            <source src="" type="audio/ogg">
+                        </audio></li>
                 </ul>
             </div>
         </div>
     </div>
-
 
     <!-- Content wrapper -->
     <div class="content-wrapper ">
@@ -65,37 +66,28 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="row">
-
-                        <!-- Artist info section -->
+                        <!-- artist info section -->
                         <div class="col-sm-12">
                             <div class="card background" id="artistInfoSection">
-                                <h2 class="card-title" id="artistName">
-                                    Artist Name
-                                </h2>
-                                <p id="artistInfo">
-                                    artistInfo:
-                                    date of birth:~
-                                    albrum:~
-                                    history:~
-                                </p>
+                                <h2 class="card-title" id="artistName"></h2>
+                                <p id="artistInfo"></p>
                             </div>
                         </div>
 
-
-                        <!-- artist albrum section  -->
+                        <!-- album info section  -->
                         <div class="col-sm-12">
-                            <div class="card background" id="albrum">
-                                <h2 class="card-title">
-                                    Artist albrum
+                            <div class="card background" id="albumTitle">
+                                <h2 class="card-title" id="albumName">
+                                    Artist album
                                 </h2>
-                                <div class="w-200 mw-full card p-0" id="artistAlbrum">
-                                    <img id="albrumExample" src="..." class="img-fluid rounded-top" alt="...">
+                                <div class="w-200 mw-full card p-0" id="artistAlbum">
+                                    <img id="currentAlbum" src="..." class="img-fluid rounded-top" alt="...">
                                     <div class="content">
                                         <h2 class="content-title">
-                                            Albrum name
+                                            Album name
                                         </h2>
                                         <p class="text-muted">
-                                            description~~~
+                                            description
                                         </p>
                                     </div>
                                 </div>
@@ -104,7 +96,7 @@
                     </div>
                 </div>
 
-                <!-- Tweeter section  -->
+                <!-- artist twitter section  -->
                 <div class="col-sm-4">
                     <div class="row">
                         <div class="col-sm-12">
@@ -120,67 +112,15 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
 
     </div>
-    </div>
-
 
     <div class="toggle" onclick="togglemenu()"></div>
-    <script type="text/javascript">
-        let navigation = document.querySelector('.navigation');
-        let toggle = document.querySelector('.toggle');
-        let content = document.querySelector('.content-wrapper');
-        let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Spotwify</a></li><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" placeholder="Artist"></div><li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">Twitter</span></a></li><br /><div class="sidebar-divider"></div><li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">Artist Infomation</span></a></li><br /><div class="sidebar-divider"></div><li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">Albrum</span></a></li><br/><div class="sidebar-divider"></div><li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span><source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg"></audio></li></ul></div>';
-        let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a></li><div class="sidebar-content"><input type="text" class="form-control"></div><li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li><br /><div class="sidebar-divider"></div><li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a></li><br /><div class="sidebar-divider"></div><li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span></a></li><br /><div class="sidebar-divider"></div><li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span><source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg"></audio></li></ul></div>';
-        let audioEl = document.querySelector('audio')
-        function togglemenu() {
-            navigation.classList.toggle('active');
-            toggle.classList.toggle('active');
-            if (!navigation.classList.contains('active')) {
-                content.style.marginLeft = '60px';
-                content.style.width = '96%';
-                navigation.innerHTML = "";
-                navigation.innerHTML = sidebarEmpty;
-                audioEl.setAttribute('class', "active");
-            }
-            else {
-                content.style.marginLeft = '300px';
-                content.style.width = '80%';
-                navigation.innerHTML = "";
-                navigation.innerHTML = sidebarFull;                
-                audioEl.setAttribute('class', "hide");
-            }
-            media()
-            
-           
-        }
-
-        navigation.addEventListener("mouseenter", function (event) {
-            content.style.marginLeft = '300px';
-            content.style.width = '80%';
-            navigation.innerHTML = "";
-            navigation.innerHTML = sidebarFull;
-            media()
-        })
-
-        navigation.addEventListener("mouseleave", function () {
-            content.style.marginLeft = '60px';
-            content.style.width = '96%';
-            navigation.innerHTML = "";
-            navigation.innerHTML = sidebarEmpty;
-            media()
-        });
-
-        function media(){
-            if(document.querySelector('body').style.width<400){
-                content.style.margin = 0;
-            }
-        }
-
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./asset/main.js"></script>
 
 </body>
 

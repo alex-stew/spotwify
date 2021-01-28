@@ -1,10 +1,9 @@
 body {
-    background:url(https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80);
+    background:url("./background.jpg");
     background-size: cover;  
     min-height: 100vh;
     z-index: 0;
-      
-   }
+}
 
 div {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -17,11 +16,16 @@ div {
     font-family:'Poppins',sans-serif;
 }
 
+.container-fluid {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+}
+
 .navigation{
 position:fixed;
 width: 60px;
 height: 100%;
-background: white;
+background:rgba(255, 255, 255, 0.747);
 transition: 0.5s;
 z-index:1;
 display: block;
