@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./asset/logo.png" type="image/icon type">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./backup.css" />
+
+    <title>redo</title>
+</head>
+<body>
+    
+
+    <!-- Page wrapper with composite sidebar -->
+    <div class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom"
+        data-sidebar-type="full-height overlayed-sm-and-down">
+        <!-- Sidebar overlay -->
+        <!-- <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div> -->
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <a href="#" class="navbar-brand">
+                <img src="./asset/logo.png" alt="Sportify">
+                Sportify
+            </a>
+            <!-- <button class="btn" type="button" onclick="halfmoon.toggleSidebar()">Toggle sidebar</button> -->
+            <button className="btn btn-action" type="button" onClick={ halfmoon.toggleSidebar()}>
+                <i class="fa fa-bars" aria-hidden="true">
+                    ::before
+                </i>
+            </button>
+        </nav>
+        <!-- Sidebar that is overlayed on small screens and down, and full height otherwise -->
+        <div class="sidebar-overlay" onclick="halfmoon.toggleSiderBar()"></div>
+        
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Sportify</a>
+                <div class="sidebar-content"><input type="text" class="form-control"></div>
+
+                <div class="sidebar-divider"></div>
+                <a href="#" class="sidebar-link ">
+                    <span class="sidebar-icon bg-primary text-white rounded-circle">
+                        <i class="fa fa-file-word-o" aria-hidden="true"></i>
+                    </span>
+                    Twitter
+                </a>
+                <br />
+                <a href="#" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon bg-success text-dark rounded-circle">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                    </span>
+                    Artisit Infomation
+                </a>
+                <br />
+                <a href="#" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon bg-secondary text-dark rounded-circle">
+                        <!-- bg-secondary = background-color: var(--secondary-color), text-dark = color: var(--lm-base-text-color), rounded-circle = border-radius: 50% -->
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    </span>
+                    Albrum
+                </a>
+
+
+            </div>
+        </div>
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row">
+
+                            <!-- Artist info section -->
+                            <div class="col-sm-12">
+                                <div class="card background" id="artistInfoSection">
+                                    <h2 class="card-title" id="artistName">
+                                        Artist Name
+                                    </h2>
+                                    <p id="artistInfo">
+                                        artistInfo:
+                                        date of birth:~
+                                        albrum:~
+                                        history:~
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <!-- artist albrum section  -->
+                            <div class="col-sm-12">
+                                <div class="card background" id="albrum">
+                                    <h2 class="card-title">
+                                        Artist albrum
+                                    </h2>
+                                    <div class="w-200 mw-full card p-0" id="artistAlbrum">
+                                        <img id="albrumExample" src="..." class="img-fluid rounded-top" alt="...">
+                                        <div class="content">
+                                            <h2 class="content-title">
+                                                Albrum name
+                                            </h2>
+                                            <p class="text-muted">
+                                                description~~~
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tweeter section  -->
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="w-600 mw-full">
+                                    <div class="card background">
+                                        <h2 class="card-title">
+                                            Twitter
+                                        </h2>
+                                        <p class="text-muted" id="twitter">
+                                            ##tag twitter
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar fixed bottom -->
+        <nav class="navbar navbar-fixed-bottom">
+            ...
+        </nav>
+    </div>
+    
+    <!-- Requires halfmoon.js for toggling sidebar -->
+    <script src="path/to/halfmoon.js"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div id="searchBox" class="background hide">
+    <div id="searchBox" class="background">
         <div class="container-fluid" class="background">
             <div class="row ">
                 <div class="col-sm d-flex justify-content-center">
@@ -36,10 +36,10 @@
     </div>
 
     <!-- front page content  -->
-    <div class="page-wrapper with-sidebar">
+    <div class="hide page-wrapper with-sidebar " id="mainPage">
         <!-- sidebar section  -->
-        <div class="sidebar navigation">
-            <div class="sidebar-menu" style="max-width:86%;height:auto;">
+        <div class="sidebar navigation navbar ">
+            <div class="sidebar-menu navbar-fixed-bottom" style="max-width:86%; height:auto;">
                 <ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a></li>
                     <div class="sidebar-content"><input type="text" class="form-control"></div>
                     <li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li><br />
@@ -52,50 +52,69 @@
                     <div class="sidebar-divider"></div>
                     <li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span>
                             <source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg">
-                            </audio></li>
+                        </audio></li>
                 </ul>
             </div>
         </div>
-    </div>
 
 
-    <!-- Content wrapper -->
-    <div class="content-wrapper ">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="row">
 
-                        <!-- Artist info section -->
-                        <div class="col-sm-12">
-                            <div class="card background" id="artistInfoSection">
-                                <h2 class="card-title" id="artistName">
-                                    Artist Name
-                                </h2>
-                                <p id="artistInfo">
-                                    artistInfo:
-                                    date of birth:~
-                                    albrum:~
-                                    history:~
-                                </p>
+        <!-- Content wrapper -->
+        <div class="content-wrapper ">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row">
+
+                            <!-- Artist info section -->
+                            <div class="col-sm-12">
+                                <div class="card background" id="artistInfoSection">
+                                    <h2 class="card-title" id="artistName">
+                                        Artist Name
+                                    </h2>
+                                    <p id="artistInfo">
+                                        artistInfo:
+                                        date of birth:~
+                                        albrum:~
+                                        history:~
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <!-- artist albrum section  -->
+                            <div class="col-sm-12">
+                                <div class="card background" id="albrum">
+                                    <h2 class="card-title">
+                                        Artist albrum
+                                    </h2>
+                                    <div class="w-200 mw-full card p-0" id="artistAlbrum">
+                                        <img id="albrumExample" src="..." class="img-fluid rounded-top" alt="...">
+                                        <div class="content">
+                                            <h2 class="content-title">
+                                                Albrum name
+                                            </h2>
+                                            <p class="text-muted">
+                                                description~~~
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-
-                        <!-- artist albrum section  -->
-                        <div class="col-sm-12">
-                            <div class="card background" id="albrum">
-                                <h2 class="card-title">
-                                    Artist albrum
-                                </h2>
-                                <div class="w-200 mw-full card p-0" id="artistAlbrum">
-                                    <img id="albrumExample" src="..." class="img-fluid rounded-top" alt="...">
-                                    <div class="content">
-                                        <h2 class="content-title">
-                                            Albrum name
+                    <!-- Tweeter section  -->
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="w-600 mw-full">
+                                    <div class="card background">
+                                        <h2 class="card-title">
+                                            Twitter
                                         </h2>
-                                        <p class="text-muted">
-                                            description~~~
+                                        <p class="text-muted" id="twitter">
+                                            ##tag twitter
                                         </p>
                                     </div>
                                 </div>
@@ -103,28 +122,9 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Tweeter section  -->
-                <div class="col-sm-4">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="w-600 mw-full">
-                                <div class="card background">
-                                    <h2 class="card-title">
-                                        Twitter
-                                    </h2>
-                                    <p class="text-muted" id="twitter">
-                                        ##tag twitter
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
 
-    </div>
+        </div>
     </div>
 
 
@@ -136,6 +136,16 @@
         let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Spotwify</a></li><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" placeholder="Artist"></div><li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">Twitter</span></a></li><br /><div class="sidebar-divider"></div><li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">Artist Infomation</span></a></li><br /><div class="sidebar-divider"></div><li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">Albrum</span></a></li><br/><div class="sidebar-divider"></div><li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span><source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg"></audio></li></ul></div>';
         let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a></li><div class="sidebar-content"><input type="text" class="form-control"></div><li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li><br /><div class="sidebar-divider"></div><li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a></li><br /><div class="sidebar-divider"></div><li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span></a></li><br /><div class="sidebar-divider"></div><li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span><source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg"></audio></li></ul></div>';
         let audioEl = document.querySelector('audio')
+        const startSearch = document.getElementById('searchBox');
+        var datadisplay = document.getElementById('mainPage');
+        var searchBtn = document.getElementById('searchButton')
+
+        function startSus() {
+            console.log("startSearch: " + startSearch);
+            startSearch.style.display = "none";
+            datadisplay.style.display = "block";
+        }
+
         function togglemenu() {
             navigation.classList.toggle('active');
             toggle.classList.toggle('active');
@@ -150,12 +160,12 @@
                 content.style.marginLeft = '300px';
                 content.style.width = '80%';
                 navigation.innerHTML = "";
-                navigation.innerHTML = sidebarFull;                
+                navigation.innerHTML = sidebarFull;
                 audioEl.setAttribute('class', "hide");
             }
             media()
-            
-           
+
+
         }
 
         navigation.addEventListener("mouseenter", function (event) {
@@ -163,22 +173,27 @@
             content.style.width = '80%';
             navigation.innerHTML = "";
             navigation.innerHTML = sidebarFull;
+            audioEl.setAttribute('class', "hide");
             media()
         })
 
         navigation.addEventListener("mouseleave", function () {
             content.style.marginLeft = '60px';
-            content.style.width = '96%';
-            navigation.innerHTML = "";
-            navigation.innerHTML = sidebarEmpty;
+                content.style.width = '96%';
+                navigation.innerHTML = "";
+                navigation.innerHTML = sidebarEmpty;
+                audioEl.setAttribute('class', "active");
             media()
         });
 
-        function media(){
-            if(document.querySelector('body').style.width<400){
-                content.style.margin = 0;
+        function media() {
+            if (window.width < 400) {
+                console.log("ayy");
+                //content.style.margin = 0;  
             }
         }
+
+        searchBtn.addEventListener('click',startSus);
 
     </script>
 
