@@ -17,24 +17,12 @@
     <!-- Page wrapper with composite sidebar -->
     <div class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom"
         data-sidebar-type="full-height overlayed-sm-and-down">
-        <!-- Sidebar overlay -->
-        <!-- <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div> -->
+     
+        <button class="btn fa fa-bars toggle" type="button" onclick="halfmoon.toggleSidebar()" ></button>                
+        
+      
 
-        <!-- Navbar -->
-        <nav class="navbar">
-            <a href="#" class="navbar-brand">
-                <img src="./asset/logo.png" alt="Sportify">
-                Sportify
-            </a>
-            <!-- <button class="btn" type="button" onclick="halfmoon.toggleSidebar()">Toggle sidebar</button> -->
-            <button className="btn btn-action" type="button" onClick={ halfmoon.toggleSidebar()}>
-                <i class="fa fa-bars" aria-hidden="true">
-                    ::before
-                </i>
-            </button>
-        </nav>
-        <!-- Sidebar that is overlayed on small screens and down, and full height otherwise -->
-        <div class="sidebar-overlay" onclick="halfmoon.toggleSiderBar()"></div>
+        <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
         
         <div class="sidebar">
             <div class="sidebar-menu">
@@ -42,16 +30,16 @@
                 <div class="sidebar-content"><input type="text" class="form-control"></div>
 
                 <div class="sidebar-divider"></div>
-                <a href="#" class="sidebar-link ">
+                <a href="#twitter" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon bg-primary text-white rounded-circle">
-                        <i class="fa fa-file-word-o" aria-hidden="true"></i>
-                    </span>
+                    <i class="fa fa-twitter sidebar-link-with-icon" aria-hidden="true"></i></span>
                     Twitter
                 </a>
+                
                 <br />
                 <a href="#" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon bg-success text-dark rounded-circle">
-                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
                     </span>
                     Artisit Infomation
                 </a>
@@ -59,7 +47,7 @@
                 <a href="#" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon bg-secondary text-dark rounded-circle">
                         <!-- bg-secondary = background-color: var(--secondary-color), text-dark = color: var(--lm-base-text-color), rounded-circle = border-radius: 50% -->
-                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        <i class="fa fa-circle-o" aria-hidden="true"></i>
                     </span>
                     Albrum
                 </a>
@@ -132,13 +120,10 @@
                 </div>
             </div>
         </div>
-        <!-- Navbar fixed bottom -->
-        <nav class="navbar navbar-fixed-bottom">
-            ...
-        </nav>
     </div>
     
     <!-- Requires halfmoon.js for toggling sidebar -->
-    <script src="path/to/halfmoon.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+    
 </body>
 </html>

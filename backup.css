@@ -13,6 +13,16 @@ body{
     background-color: salmon;
 }
 
+.toggle{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background:purple; 
+    cursor: pointer;
+    z-index:2;
+}
 
 .hide{
 display: none;

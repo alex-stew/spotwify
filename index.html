@@ -38,24 +38,36 @@
     <!-- front page content  -->
     <div class="hide page-wrapper with-sidebar " id="mainPage">
         <!-- sidebar section  -->
-        <div class="sidebar navigation navbar ">
-            <div class="sidebar-menu navbar-fixed-bottom" style="max-width:86%; height:auto;">
-                <ul><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a></li>
-                    <div class="sidebar-content"><input type="text" class="form-control"></div>
-                    <li><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li><br />
-                    <div class="sidebar-divider"></div>
-                    <li><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle"
-                                    aria-hidden="true"></i></span></a></li><br />
-                    <div class="sidebar-divider"></div>
-                    <li><a href="#albrum"><span class="icon"><i class="fa fa-circle-o"
-                                    aria-hidden="true"></i></span></a></li><br />
-                    <div class="sidebar-divider"></div>
-                    <li><audio controls id="music"><span><i class="fa fa-play-circle-o" aria-hidden="true"></i></span>
-                            <source src="https://open.spotify.com/track/0E4Y1XIbs8GrAT1YqVy6dq" type="audio/ogg">
-                        </audio></li>
-                </ul>
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Sportify</a>
+                <div class="sidebar-content"><input type="text" class="form-control"></div>
+
+                <div class="sidebar-divider"></div>
+                <a href="#twitter" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon bg-primary text-white rounded-circle">
+                    <i class="fa fa-twitter sidebar-link-with-icon" aria-hidden="true"></i></span>
+                    Twitter
+                </a>
+                
+                <br />
+                <a href="#" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon bg-success text-dark rounded-circle">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </span>
+                    Artisit Infomation
+                </a>
+                <br />
+                <a href="#" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon bg-secondary text-dark rounded-circle">
+                        <!-- bg-secondary = background-color: var(--secondary-color), text-dark = color: var(--lm-base-text-color), rounded-circle = border-radius: 50% -->
+                        <i class="fa fa-circle-o" aria-hidden="true"></i>
+                    </span>
+                    Albrum
+                </a>
+
+
             </div>
-        </div>
 
 
 
@@ -138,7 +150,7 @@
         let audioEl = document.querySelector('audio')
         const startSearch = document.getElementById('searchBox');
         var datadisplay = document.getElementById('mainPage');
-        var searchBtn = document.getElementById('searchButton')
+        var searchBtn = document.getElementById('searchButton');
 
         function startSus() {
             console.log("startSearch: " + startSearch);
