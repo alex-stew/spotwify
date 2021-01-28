@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
     min-width: 100vw;
     background-size: cover;
-    background-image: linear-gradient(to left, rgba(185, 15, 207, 0.233), rgba(49, 153, 23, 0.363));
+    background-image: linear-gradient(to bottom, rgba(17, 101, 197, 0.233), rgba(49, 153, 23, 0.363));
 }
 
 div {
@@ -32,7 +32,14 @@ div {
 }
 
 .sidebar-menu a {
-  margin: 20px;
+  margin: 25px;
+  font-weight: 900;
+  font-size: 2rem;
+}
+
+#artistInfo {
+    font-weight: 200;
+    text-align: justify;
 }
 
 .sidebar-brand {
@@ -190,5 +197,3 @@ content:"✖";
     margin-left: 0;
   }
 }
-
-

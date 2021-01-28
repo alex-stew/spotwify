@@ -5,12 +5,13 @@ let currentAlbumEl = document.querySelector("#currentAlbum");
 let navigation = document.querySelector('.navigation');
 let toggle = document.querySelector('.toggle');
 let content = document.querySelector('.content-wrapper');
-let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">Spotwify</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" style="z-index: 10;" placeholder="Artist" /></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">Twitter</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">Artist Information</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">Album</span></a><br/><div class="sidebar-divider"></div></div>';
+let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">SPOTWIFY</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i></span><input type="text" class="form-control" style="z-index: 10;" placeholder="Artist" /></div><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">TWITTER</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">ARTIST INFO</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">ALBUM</span></a><br/><div class="sidebar-divider"></div></div>';
 let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a><br /><div class="sidebar-divider"></div></div>';
 let audioEl = document.querySelector('audio');
 
 let navigationActive = false;
-
+var videoEle = document.getElementById("video");
+var songs = [];
 function togglemenu() {
   navigationActive = !navigationActive;
 
@@ -40,6 +41,85 @@ $(document).ready(function() {
   navigation.innerHTML = "";
   navigation.innerHTML = sidebarEmpty;
   
+  class Song {
+    constructor(vid, image, songNmae, description) {
+      this.vid = vid;
+      this.image = image;
+      this.songNmae = songNmae;
+      this.description = description;
+    }
+  }
+  function getSongs(id) {
+    var songUrl = "https://theaudiodb.com/api/v1/json/1/mvid.php?i=" + id;
+    $.ajax({
+      url: songUrl,
+      method: "GET",
+    }).then(function (res) {
+      console.log("res: " + res.mvids[0].idTrack);
+      for (var i = 0; i < res.mvids.length; i++) {
+        var song = new Song(
+          res.mvids[i].strMusicVid,
+          res.mvids[i].strTrackThumb,
+          res.mvids[i].strTrack,
+          res.mvids[i].strDescriptionEN
+        );
+        songs.push(song);
+      }
+      addToList();
+    });
+  }
+  function addToList() {
+    for (var i = 0; i < songs.length; i++) {
+      var tr = $("<tr>");
+      var th = $("<th>");
+      var tdImage = $("<td>");
+      var tdName = $("<td>");
+      var image = $("<img style='width:40px; height:40px;'> ");
+      th.html(i);
+      if (songs[i].image !== null) {
+        image.attr("src", songs[i].image);
+      }
+      tdImage.append(image);
+      tdName.html(songs[i].songNmae);
+      tr.append(th);
+      tr.append(tdImage);
+      tr.append(tdName);
+      tr.on("click", play);
+      tr.on("click",songInfo);
+      $("#songList").append(tr);
+    }
+  }
+  function play() {
+    //event.preventDefault();
+    var temp = $("#video");
+    var video = $("<iframe id='video' width='500' height='300' src=''></iframe>");
+    var index = jQuery(this).children("th").text();
+    var url = songs[index].vid;
+    url = url.replace("watch?v=", "embed/");
+    console.log(temp);
+    if (temp.length === 0) {
+      video.attr("src", url);
+      $("#youtube").append(video);
+    } else {
+      temp.attr("src", url);
+    }
+  }
+  function songInfo() {
+    //alert("songinfo");
+    console.log("songinfo");
+    var popup = $("#popup");
+    var index = jQuery(this).children("th").text();
+    console.log(songs[index].description);
+    if(songs[index].description === ""){
+      popup.text("NUll");
+    }else{
+      popup.text(songs[index].description);
+    }
+    
+    $("#description").show();
+    
+  }
+
   if(navigation.classList.contains("active"))
     navigation.classList.remove("active");  
 
@@ -81,7 +161,6 @@ $(document).ready(function() {
 
   function displayArtistResults(infoRes) {
       artistNameEl.text(JSON.stringify(infoRes.artists[0].strArtist));
-      artistNameEl.val().toUpperCase();
       $(artistInfoEl).text(JSON.stringify(infoRes.artists[0].strBiographyEN));
       id = infoRes.artists[0].idArtist;
       console.log(id);
@@ -89,76 +168,7 @@ $(document).ready(function() {
   }
 
 
-  //YOUTUBE AJAX CALL
-  var videoEle = document.getElementById("video");
-  var songs = [];
-  class Song {
-    constructor(vid, image, songNmae, description) {
-      this.vid = vid;
-      this.image = image;
-      this.songNmae = songNmae;
-      this.description = description;
-    }
-  }
-  function getSongs(id) {
-    var songUrl = "https://theaudiodb.com/api/v1/json/1/mvid.php?i=" + id;
-    $.ajax({
-      url: songUrl,
-      method: "GET",
-    }).then(function (res) {
-      //console.log("res: "+res.mvids[0].idTrack);
-      for (var i = 0; i < res.mvids.length; i++) {
-        var song = new Song(
-          res.mvids[i].strMusicVid,
-          res.mvids[i].strTrackThumb,
-          res.mvids[i].strTrack,
-          res.mvids[i].strDescriptionEN
-        );
-        songs.push(song);
-      }
-      addToList();
-    });
-  }
-  function addToList() {
-    for (var i = 0; i < songs.length; i++) {
-      var tr = $("<tr>");
-      var th = $("<th>");
-      var tdImage = $("<td>");
-      var tdName = $("<td>");
-      var image = $("<img style='width:40px; height:40px;'> ");
-      th.html(i);
-      if(songs[i].image !== null){
-        image.attr("src", songs[i].image);
-      }
-      tdImage.append(image);
-      tdName.html(songs[i].songNmae);
-      tr.append(th);
-      tr.append(tdImage);
-      tr.append(tdName);
-      tr.on("click", play);
-      tr.mouseover(songInfo);
-      $("#songList").append(tr);
-    }
-  }
-  function play() {
-    //event.preventDefault();
-    var index = jQuery(this).children("th").text();
-    var url = songs[index].vid;
-    url = url.replace("watch?v=", "embed/");
-    console.log(url);
-    $("#video").attr("src", url);
-  }
-  function songInfo() {
-    //alert("songinfo");
-    console.log("songinfo");
-    var popup = $("<div id = 'popup'style='display: none'>");
-    var index = jQuery(this).children("th").text();
-    console.log(songs[index].description);
-    popup.text(songs[index].description);
-    $('#popup').show();
-    jQuery(this).append(popup);
-  }
-
+  
   //TWITTER AJAX CALL
   const bearerToken = 'AAAAAAAAAAAAAAAAAAAAAPSsLwEAAAAAfmGkC5w40GXnulvQILRwRWbNnH8%3DWZ6GrB5H83CPvjFLyBfTzKvdTXFgHaikXFyesyHeJ4yTkaEWpD';
   var twitterHandle = "Tool";
