@@ -5,7 +5,7 @@ let currentAlbumEl = document.querySelector("#currentAlbum");
 let navigation = document.querySelector('.navigation');
 let toggle = document.querySelector('.toggle');
 let content = document.querySelector('.content-wrapper');
-let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">SPOTWIFY</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i><input id="spotSearch" type="text" class="form-control" style="z-index: 10;" placeholder="Artist" /></div></span><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">TWITTER</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">ARTIST INFO</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">ALBUM</span></a><br/><div class="sidebar-divider"></div></div>';
+let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">SPOTWIFY</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i><form method="post" id="spotForm"><input id="spotSearch" type="text" class="form-control" style="z-index: 10;" placeholder="Search..." name="q" value=""/></form></div></span><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">TWITTER</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">ARTIST INFO</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">ALBUM</span></a><br/><div class="sidebar-divider"></div></div>';
 let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a><br /><div class="sidebar-divider"></div></div>';
 let audioEl = document.querySelector('audio');
 
@@ -36,15 +36,30 @@ function togglemenu() {
   }
 }
 
-$("#searchSidebar").on("submit",function(event){
+$("#spotForm").submit(function(event){
   event.preventDefault();
-  console.log("hello");
-  var newEntry = $("#spotSearch").val();
-  console.log(newEntry);
-  
 })
 
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = window.location.search.substring(1),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+  }
+};
+
 $(document).ready(function () {
+  var search = getUrlParameter('q');
+
+  if(search == null || search == undefined) search = 'Tool';
+
   content.style.marginLeft = '60px';
   content.style.width = '96%';
   navigation.innerHTML = "";
@@ -152,7 +167,6 @@ $(document).ready(function () {
 
 
     $("#description").show();
-
   }
 
   if (navigation.classList.contains("active"))
@@ -183,8 +197,7 @@ $(document).ready(function () {
   });
 
   //ARTIST INFO AJAX REQUEST
-  var query = "tool";
-  var infoURL = "https://www.theaudiodb.com/api/v1/json/1/search.php?s=" + query;
+  var infoURL = "https://www.theaudiodb.com/api/v1/json/1/search.php?s=" + search;
 
   $.ajax({
     url: infoURL,
@@ -206,9 +219,8 @@ $(document).ready(function () {
 
   //TWITTER AJAX CALL
   const bearerToken = 'AAAAAAAAAAAAAAAAAAAAAPSsLwEAAAAAfmGkC5w40GXnulvQILRwRWbNnH8%3DWZ6GrB5H83CPvjFLyBfTzKvdTXFgHaikXFyesyHeJ4yTkaEWpD';
-  var twitterHandle = "Tool";
   $.ajax({
-    url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/by/username/" + twitterHandle,
+    url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/by/username/" + search,
     method: "GET",
     timeout: 0,
     beforeSend: function (xhr) {
