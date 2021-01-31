@@ -16,16 +16,13 @@ Spotwify is an entertainment app designed to deliver high quality music along wi
 ## Features 
 - Artist Search
   - Search spotify for an artist directly using our search bar
-- Search History
-  - Quickly go through your previous searches with the handy search history tool
 - Artist info
   - Get up-to-date information on the current artist playing
   - Get the current artist's latest tweets and mentions from twitter
 - Player
-  - Great control of the music playing with the embedded spotify player
-  - Skip forward, skip backward, play, pause
+  - Great control of the music playing with the embedded youtube player
 - Responsive menus
-  - Enjoy your time using Spotwify with our beautiful, responsive menus
+  - Enjoy your time using Spotwify with our responsive menus
 
 ## Deployed URL
 https://connor-walden.github.io/spotwify
