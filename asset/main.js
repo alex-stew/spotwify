@@ -5,7 +5,7 @@ let currentAlbumEl = document.querySelector("#currentAlbum");
 let navigation = document.querySelector('.navigation');
 let toggle = document.querySelector('.toggle');
 let content = document.querySelector('.content-wrapper');
-let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">SPOTWIFY</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i><form method="post" id="spotForm"><input id="spotSearch" type="text" class="form-control" style="z-index: 10;" placeholder="Search..." name="q" value=""/></form></div></span><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">TWITTER</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">ARTIST INFO</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">ALBUM</span></a><br/><div class="sidebar-divider"></div></div>';
+let sidebarFull = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png">SPOTWIFY</a><div class="sidebar-content"><span><i class="fa fa-search" aria-hidden="true"></i><form method="post" action="index.html" id="spotForm"><input id="spotSearch" type="text" class="form-control" style="z-index: 10;" placeholder="Search..." name="q" value=""/></form></div></span><a href="#twitter"><i class="fa fa-twitter" aria-hidden="true"></i><span class="sidebar-link" id="navLink1">TWITTER</span></a><br /><div class="sidebar-divider"></div><a href="#artistInfoSection"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink2">ARTIST INFO</span></a><br /><div class="sidebar-divider"></div><a href="#album"><span class="icon"><i class="fa fa-circle-o" aria-hidden="true"></i></span><span class="sidebar-link" id="navLink3">ALBUM</span></a><br/><div class="sidebar-divider"></div></div>';
 let sidebarEmpty = '<div class="sidebar-menu" style="max-width:86%;height:auto;"><a href="#" class="sidebar-brand"><img id="frontLogo" src="./asset/logo.png"></a><br /><div class="sidebar-divider"></div></div>';
 let audioEl = document.querySelector('audio');
 
@@ -17,7 +17,11 @@ function togglemenu() {
   navigationActive = !navigationActive;
 
   if (!navigationActive) {
-    content.style.marginLeft = '60px';
+    if(window.outerWidth > 400)
+      content.style.marginLeft = '60px';
+    else
+      content.style.marginLeft = '0px';
+
     content.style.width = '96%';
     navigation.innerHTML = "";
     navigation.innerHTML = sidebarEmpty;
@@ -26,7 +30,11 @@ function togglemenu() {
       navigation.classList.remove("active");
   }
   else {
-    content.style.marginLeft = '300px';
+    if(window.outerWidth > 400)
+      content.style.marginLeft = '300px';
+    else
+      content.style.marginLeft = '0px';
+
     content.style.width = '80%';
     navigation.innerHTML = "";
     navigation.innerHTML = sidebarFull;
@@ -60,7 +68,12 @@ $(document).ready(function () {
 
   if(search == null || search == undefined) search = 'Tool';
 
-  content.style.marginLeft = '60px';
+  
+  if(window.outerWidth > 400)
+    content.style.marginLeft = '60px';
+  else
+    content.style.marginLeft = '0px';
+
   content.style.width = '96%';
   navigation.innerHTML = "";
   navigation.innerHTML = sidebarEmpty;
@@ -79,15 +92,17 @@ $(document).ready(function () {
       url: songUrl,
       method: "GET",
     }).then(function (res) {
-      console.log("res: " + res.mvids[0].idTrack);
-      for (var i = 0; i < res.mvids.length; i++) {
-        var song = new Song(
-          res.mvids[i].strMusicVid,
-          res.mvids[i].strTrackThumb,
-          res.mvids[i].strTrack,
-          res.mvids[i].strDescriptionEN
-        );
-        songs.push(song);
+      if(res.mvids != null)
+      {
+        for (var i = 0; i < res.mvids.length; i++) {
+          var song = new Song(
+            res.mvids[i].strMusicVid,
+            res.mvids[i].strTrackThumb,
+            res.mvids[i].strTrack,
+            res.mvids[i].strDescriptionEN
+          );
+          songs.push(song);
+        }
       }
       addToList();
     });
@@ -120,7 +135,7 @@ $(document).ready(function () {
     var index = jQuery(this).children("th").text();
     var url = songs[index].vid;
     url = url.replace("watch?v=", "embed/");
-    console.log(temp);
+    url = url.replace("http://", "https://");
     if (temp.length === 0) {
       video.attr("src", url);
       $("#youtube").append(video);
@@ -130,7 +145,6 @@ $(document).ready(function () {
   }
   function songInfo() {
     //alert("songinfo");
-    console.log("songinfo");
     var popup = $("#popup");
     var index = jQuery(this).children("th").text();
     var str = songs[index].description
@@ -177,7 +191,11 @@ $(document).ready(function () {
 
     if (!navigation.classList.contains("active")) {
       navigationActive = true;
+
+    if(window.outerWidth > 400)
       content.style.marginLeft = '300px';
+    else
+      content.style.marginLeft = '0px';
 
       content.style.width = '80%';
       navigation.innerHTML = sidebarFull;
@@ -189,7 +207,12 @@ $(document).ready(function () {
 
     if (!navigation.classList.contains("active")) {
       navigationActive = false;
+
+      
+    if(window.outerWidth > 400)
       content.style.marginLeft = '60px';
+    else
+      content.style.marginLeft = '0px';
 
       content.style.width = '96%';
       navigation.innerHTML = sidebarEmpty;
@@ -203,7 +226,6 @@ $(document).ready(function () {
     url: infoURL,
     method: "GET"
   }).then(function (infoRes) {
-    console.log(infoRes);
     displayArtistResults(infoRes);
   });
 
@@ -211,7 +233,6 @@ $(document).ready(function () {
     artistNameEl.text(infoRes.artists[0].strArtist);
     $(artistInfoEl).text(infoRes.artists[0].strBiographyEN);
     id = infoRes.artists[0].idArtist;
-    console.log(id);
     getSongs(id);
   }
 
@@ -220,7 +241,7 @@ $(document).ready(function () {
   //TWITTER AJAX CALL
   const bearerToken = 'AAAAAAAAAAAAAAAAAAAAAPSsLwEAAAAAfmGkC5w40GXnulvQILRwRWbNnH8%3DWZ6GrB5H83CPvjFLyBfTzKvdTXFgHaikXFyesyHeJ4yTkaEWpD';
   $.ajax({
-    url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/by/username/" + search,
+    url: "https://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/by/username/" + search,
     method: "GET",
     timeout: 0,
     beforeSend: function (xhr) {
@@ -239,7 +260,7 @@ $(document).ready(function () {
 
   var getTweets = function (id) {
     $.ajax({
-      url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + id + "/tweets",
+      url: "https://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + id + "/tweets",
       method: "GET",
       timeout: 0,
       data: "expansions=author_id",
@@ -256,7 +277,7 @@ $(document).ready(function () {
           response.data.forEach(function (data) {
             if (++index < 5) {
               $.ajax({
-                url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + data.author_id,
+                url: "https://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + data.author_id,
                 method: "GET",
                 timeout: 0,
 
@@ -277,7 +298,7 @@ $(document).ready(function () {
 
   var getMentions = function (id) {
     $.ajax({
-      url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + id + "/mentions",
+      url: "https://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + id + "/mentions",
       method: "GET",
       timeout: 0,
       data: 'expansions=author_id',
@@ -294,7 +315,7 @@ $(document).ready(function () {
           response.data.forEach(function (data) {
             if (++index < 5)
               $.ajax({
-                url: "http://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + data.author_id,
+                url: "https://cors-anywhere.herokuapp.com/https://api.twitter.com/2/users/" + data.author_id,
                 method: "GET",
                 timeout: 0,
 
